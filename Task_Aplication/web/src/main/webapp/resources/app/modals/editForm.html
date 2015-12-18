@@ -1,0 +1,74 @@
+<div class="modal-body">
+
+    <form name="employeeForm" novalidate ng-submit="editEmployee()">
+
+        <div class="panel panel-primary">
+            <div class="panel-heading"><h3>Edit employee {{employee.name}}</h3></div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="form-group col-md-4">
+                        <label class="control-label">Id</label>
+                    </div>
+                    <div class="form-group col-md-8" ng-class="teamNumberValidation.css" show-errors>
+                        <input class="form-control" type="text" ng-model="employee.id" readonly required>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-md-4">
+                        <label class="control-label">Name</label>
+                    </div>
+                    <div class="form-group col-md-8" ng-class="nameValidation.css" show-errors>
+                        <input class="form-control" type="text"
+                               ng-change="check('name')"
+                               ng-model="employee.name"
+                               ng-pattern="NAME_REGEX"
+                               required>
+                        <p style="color: red" class="validation-message" ng-show="nameValidation.isNull">Name cannot be null</p>
+                        <p style="color: red" class="validation-message" ng-show="nameValidation.isValid">Name cannot be more than 10 items. Must be only English letters!</p>
+                    </div>
+                </div>
+
+                <!-- active -->
+                <div class="row">
+                    <div class="form-group col-md-4">
+                        <label class="control-label">Employee Active</label>
+                    </div>
+                    <div class="form-group col-md-8">
+                        <button class="btn btn-success" ng-click="resolve()" type="button" style="margin-left: 40%;">
+                            <span ng-show="employee.active">YES</span>
+                            <span ng-hide="employee.active">NO</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- department -->
+                <div class="row">
+                    <div class="form-group col-md-4">
+                        <label class="control-label">Employee department</label>
+                    </div>
+                    <div class="form-group col-md-8">
+                        <select chosen class="form-control" ng-model="employee.departmentName"
+                                class="col-xs-5 selectContainer"
+                                allow-single-deselect="false"
+                                ng-options="option for option in employee.departmentNames | filter"
+                                required>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="form-group col-md-10">
+                <button type="submit" class="btn btn-success">EDIT</button>
+            </div>
+            <div class="form-group col-md-2">
+                <button type="button" class="btn btn-danger pull-right" ng-click="close()">CLOSE</button>
+            </div>
+        </div>
+    </form>
+</div>
